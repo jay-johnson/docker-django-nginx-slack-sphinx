@@ -164,7 +164,7 @@ You can use the following environment variables inside the docker-compose.yml_ f
 +-----------------------------------+-----------+-----------------------------------------------------+-------------------------------------------------------------+
 | **ENV_DERIVED_NGINX_CONFIG**      | nginx     | Provide a path to a `non_ssl.conf`_                 | /root/containerfiles/non_ssl.conf                           | 
 +-----------------------------------+-----------+-----------------------------------------------------+-------------------------------------------------------------+
-| **ENV_DEFAULT_ROOT_VOLUME**       | Both      | Mounted a hosted Volume for sharing files           | /opt/web                                                    |
+| **ENV_DEFAULT_ROOT_VOLUME**       | Both      | A mounted host Volume for sharing files             | /opt/web                                                    |
 +-----------------------------------+-----------+-----------------------------------------------------+-------------------------------------------------------------+
 
 .. warning:: Please make sure the **django-nginx** and **django-slack-sphinx** containers use the **same base** ``ENV_DEFAULT_ROOT_VOLUME`` directory.
@@ -302,7 +302,7 @@ Install and Setup
         Done
         $
 
-#.  Test the ``http://localhost/home/`` page works from a broser
+#.  Test the ``http://localhost/home/`` page works from a browser
 
     .. figure:: http://jaypjohnson.com/_images/image_2016-07-10_home-page-demo.png
 
@@ -370,11 +370,11 @@ If you want to stop and cleanup the site and docker containers run these command
 
         $ docker rmi jayjohnson/django-nginx jayjohnson/django-slack-sphinx
 
-#.  Remove the blog directory
+#.  Remove the site's static directory
 
     :: 
 
-        $ rm -rf /opt/blog/repo
+        $ rm -rf /opt/web/static
 
 Licenses
 --------
