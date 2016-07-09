@@ -1,0 +1,307 @@
+{% load static  %}
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="{{SEO_META_DESC}}">
+    <meta name="keywords" content="{{SEO_META_KEYWORD}}">
+    <link rel="author" href="{{SEO_META_AUTHOR}}" />
+    <link rel="canonical" href="{{SEO_META_URL}}" />
+
+    <meta property="og:url" content="{{SEO_META_URL}}">
+    <meta property="og:image" content="{{SEO_META_IMAGE}}">
+    <meta property="og:description" content="{{SEO_META_DESC}}">
+    <meta property="og:keywords" content="{{SEO_META_KEYWORD}}">
+    <meta property="og:title" content="{{SEO_META_TITLE}}">
+    <meta property="og:type" content="{{SEO_META_TYPE}}">
+    <meta property="og:site_name" content="{{SEO_META_TITLE}}">
+    <meta property="og:see_also" content="{{SEO_META_ALSO}}">
+
+    <meta itemprop="name" content="{{SEO_META_TITLE}}">
+    <meta itemprop="description" content="{{SEO_META_DESC}}">
+    <meta itemprop="image" content="{{SEO_META_IMAGE}}">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="{{SEO_META_CREATOR}}">
+    <meta name="twitter:creator" content="{{SEO_META_CREATOR}}">
+    <meta name="twitter:url" content="{{SEO_META_URL}}">
+    <meta name="twitter:title" content="{{SEO_META_TITLE}}">
+    <meta name="twitter:description" content="{{SEO_META_DESC}}">
+    <meta name="twitter:image" content="{{SEO_META_IMAGE}}">
+
+    <title>{{SEO_META_TITLE}}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static "basic.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "pygments.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "bootswatch-3.3.6/united/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap-sphinx.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"/>
+
+    <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/doctools.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery-1.11.0.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/jquery-fix.js" %}"></script>
+    <script type="text/javascript" src="{% static "bootstrap-3.3.6/js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "bootstrap-sphinx.js" %}"></script>
+
+    <link rel="shortcut icon" href="{% static "_images/favicon.ico" %}" />
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', "{{GA_TRACKING_CODE}}", 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  false
+      };
+    </script>
+<style>
+
+/*!
+ * Bootstrap v3.0.0
+ *
+ * Copyright 2013 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+aside,
+footer,
+header,
+hgroup,
+section{
+  display: block;
+}
+body {
+  color: #404040;
+  font-family: "Helvetica Neue",Helvetica,"Liberation Sans",Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  padding-top: 5px;
+}
+
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+ul {
+    margin-top: 0;
+}
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.container:before,
+.container:after {
+  content: " ";
+  /* 1 */
+
+  display: table;
+  /* 2 */
+
+}
+.container:after {
+  clear: both;
+}
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.row:before,
+.row:after {
+  content: " ";
+  /* 1 */
+
+  display: table;
+  /* 2 */
+
+}
+.row:after {
+  clear: both;
+}
+.col-sm-6, .col-md-6, .col-xs-12 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.col-xs-12 {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+  .col-sm-6 {
+    float: left;
+  }
+  .col-sm-6 {
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+  .col-md-6 {
+    float: left;
+  }
+  .col-md-6 {
+    width: 50%;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+a {
+  color: #069;
+  text-decoration: none;
+}
+a:hover {
+  color: #EA0011;
+  text-decoration: underline;
+}
+hgroup {
+  margin-top: 1px;
+}
+footer {
+    margin: 50px 0 25px;
+}
+h1, h2, h3 {
+  color: #000;
+  line-height: 1.38em;
+}
+h1 {
+  font-size: 25px;
+  font-weight: 300;
+  border-bottom: 1px solid #fff;
+}
+h1:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #ddd;
+}
+h2 {
+  font-size: 19px;
+  font-weight: 400;
+}
+h3 {
+  font-size: 15px;
+  font-weight: 400;
+  margin: 0 0 .3em;
+}
+p {
+  margin: 0 0 2em;
+}
+p + h2 {
+  margin-top: 2em;
+}
+html {
+  background: #fff;
+  height: 100%;
+}
+code {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 1px 5px;
+  color: #888;
+}
+pre {
+  display: block;
+  padding: 13.333px 20px;
+  margin: 0 0 20px;
+  font-size: 13px;
+line-height: 1.4;
+  background-color: #fff;
+  border-left: 2px solid rgba(120,120,120,0.35);
+  white-space: pre;
+  white-space: pre-wrap;
+  word-break: normal;
+  word-wrap: break-word;
+  overflow: auto;
+  font-family: Menlo,Monaco,"Liberation Mono",Consolas,monospace !important;
+}
+
+</style>
+
+</head>
+<body>
+<section class='container'>
+
+        <hgroup>
+          <h1>Welcome to a Docker + Django Demo Site</h1>
+        </hgroup>
+
+        <div class="row">
+
+          <section class='col-xs-12 col-sm-6 col-md-6'>
+
+            <section>
+              <h2>Overview</h2>
+              <p>
+                This site is running <a href="https://www.djangoproject.com/" target="_blank">Django</a> + <a href="https://www.nginx.com/" target="_blank">nginx</a> + <a href="https://slack.com/" target="_blank">Slack</a> + <a href="https://uwsgi-docs.readthedocs.io/en/latest/" target="_blank">uWSGI</a> with <a href="https://docs.docker.com/compose/" target="_blank">docker compose</a> for hosting a stylized HTML using <a href="http://www.sphinx-doc.org/en/stable/" target="_blank">Sphinx</a> + <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> + <a href="https://bootswatch.com/" target="_blank">Bootswatch</a>
+                <img src="{% static "_images/image_logo.png" %}" alt="Docker Compose - Django + nginx + Slack + uWSGI + Sphinx + Bootstrap + Bootswatch"class="img-responsive">
+              </p>
+            </section>
+
+          </section>
+          
+          
+          <section class='col-xs-12 col-sm-6 col-md-6'>
+
+            <section>
+              <h2>Technical Documentation for this site</h2>
+              <p>
+                This site automatically hosts <a href="/docs/docs.html" target="_blank">technical documentation</a> written in RST and converts it into stylized html.
+              </p>
+            </section>
+
+            <section>
+              <h2>Slack Driven Development</h2>
+                <p>
+                  Test your Slack integration using the <a href="https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/api.py#L236-L258" target="_blank">Django api handler</a> with this link: <a href="/slackerror/" target="_blank">Send an exception message to Slack using Django</a>
+                </p>
+
+                <p>
+                  If you did not see the message posted into the Slack channel. Confirm the docker-compose.yml file has the <a href="https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/docker-compose.yml#L39-L44" target="_blank">Slack environment variables</a> set correctly and the bot has been invited to the correct Slack channel.
+                </p>
+            </section>
+
+          </section>
+          
+
+        </div>
+</section>
+</body>
+</html>
