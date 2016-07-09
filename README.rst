@@ -25,13 +25,13 @@ The two containers mount a shared volume hosted at: ``/opt/web/`` and Django `de
 
 Lastly, there has been a part of me that wanted to stop battling Django `STATIC_ROOT 404 issues`_ once and for all.
 
-.. _Slack integration: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/docker-compose.yml#L39-L44
-.. _publishes exceptions: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/api.py#L40-L48
+.. _Slack integration: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/docker-compose.yml#L39-L44
+.. _publishes exceptions: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/api.py#L40-L48
 .. _sphinx-bootstrap-theme: https://github.com/ryan-roemer/sphinx-bootstrap-theme
 .. _bootstrap: http://getbootstrap.com/
 .. _multiple bootswatch themes: https://github.com/ryan-roemer/sphinx-bootstrap-theme/blob/bfb28af310ad5082fae01dc1ff08dab6ab3fa410/demo/source/conf.py#L146-L150
 .. _Slack driven development post: http://jaypjohnson.com/2016-06-15-slack-driven-development.html
-.. _deploys the static assets: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/settings.py#L131-L135
+.. _deploys the static assets: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/settings.py#L131-L135
 .. _bootswatch website: http://bootswatch.com/
 .. _bootswatch repository: https://github.com/thomaspark/bootswatch
 
@@ -59,11 +59,11 @@ Integrating with Google Search Console
 
     http://jaypjohnson.com/sitemap.xml
 
-.. _automatically build: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L102-L130
-.. _docs directory: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L108-L115
-.. _routes in the urls.py file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L117-L124
+.. _automatically build: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L102-L130
+.. _docs directory: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L108-L115
+.. _routes in the urls.py file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L117-L124
 .. _in the webapp directory: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/tree/master/django/containerfiles/django/wsgi/server/webapp
-.. _ENV_GOOGLE_ANALYTICS_CODE: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/docker-compose.yml#L45
+.. _ENV_GOOGLE_ANALYTICS_CODE: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/docker-compose.yml#L45
 
 2.  Automatic **robots.txt** creation
 
@@ -73,8 +73,8 @@ Integrating with Google Search Console
 
     For this initial release, the `robots.txt file`_ is just a flat, static file you can change anytime.
 
-.. _sitemap.xml: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/api.py#L165-L167
-.. _robots.txt file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L132-L136
+.. _sitemap.xml: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/api.py#L165-L167
+.. _robots.txt file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L132-L136
 
 SEO Meta Data
 -------------
@@ -88,16 +88,16 @@ SEO meta data is helpful when you share a link to your site over social media li
 .. note:: Please make sure the **rst** meta data uses the existing tags prefixed with ``SEO_META_`` as it is `parsed and injected during the deployment`_ of the container.
 
 .. _rst file can deploy SEO meta data: https://raw.githubusercontent.com/jay-johnson/docker-django-nginx-slack-sphinx/master/django/containerfiles/django/wsgi/server/webapp/docs/2016-07-10-sample-post.rst
-.. _parsed and injected during the deployment: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L48-L99
+.. _parsed and injected during the deployment: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L48-L99
 
 2.  SEO meta data in the **html** files
 
     Each `html template file can deploy SEO meta data`_ by storing it in a `centralized JSON file`_ that is referenced by the URL. On startup Django `parses this JSON file`_ and then whenever the page's URL is requested the `meta data is retrieved and passed using the template context`_ for building the html template. Please refer to the `Django Template documentation`_ for more information on how these internals work.
     
-.. _html template file can deploy SEO meta data: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/templates/index.html#L11-L37
+.. _html template file can deploy SEO meta data: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/templates/index.html#L11-L37
 .. _centralized JSON file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/django/containerfiles/django/wsgi/server/webapp/meta_data_seo.json#L3-L13
-.. _parses this JSON file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/settings.py#L199-L201
-.. _meta data is retrieved and passed using the template context: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/api.py#L94-L98
+.. _parses this JSON file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/settings.py#L199-L201
+.. _meta data is retrieved and passed using the template context: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/api.py#L94-L98
 .. _Django Template documentation: https://docs.djangoproject.com/en/1.9/ref/templates/api/
 
 Slack Integration
@@ -113,8 +113,8 @@ http://localhost/slackerror/
 
 If it is working you should see the bot post a simple debugging message.
 
-.. _Slack env variables: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/docker-compose.yml#L39-L44
-.. _anything that is not True: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/django/wsgi/server/webapp/settings.py#L143
+.. _Slack env variables: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/docker-compose.yml#L39-L44
+.. _anything that is not True: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/django/wsgi/server/webapp/settings.py#L143
 
 Compose Environment Variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -180,7 +180,7 @@ This composition is using a version 2 `docker-compose.yml`_. It is setup to only
 
 .. _docker compose file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/docker-compose.yml
 .. _default bridge network: https://docs.docker.com/engine/userguide/networking/default_network/
-.. _uWSGI options: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/nginx/containerfiles/non_ssl.conf#L45-L55
+.. _uWSGI options: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/nginx/containerfiles/non_ssl.conf#L45-L55
 
 ::
 
@@ -268,9 +268,9 @@ If the composition is setup to run in **PROD** mode the Django container will ru
 .. warning:: The ``--thunder-lock`` parameter is an `experimental feature`_. To disable it just change the compose file's `ENV_SERVER_MODE`_ value from **PROD** to **STANDARD** (anything not DEV or PROD).
 
 .. _django-uwsgi.ini: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/django/containerfiles/django/wsgi/server/django-uwsgi.ini
-.. _thunder lock: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/django/containerfiles/start-container.sh#L25-L34
+.. _thunder lock: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/django/containerfiles/start-container.sh#L25-L34
 .. _experimental feature: http://uwsgi-docs.readthedocs.io/en/latest/articles/SerializingAccept.html#uwsgi-developers-are-fu-ing-cowards
-.. _ENV_SERVER_MODE: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/44a56b864ae50cbcc77891c49cfa9bf57d2c4af9/docker-compose.yml#L35
+.. _ENV_SERVER_MODE: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/7526479b320b464a1bbfd36df1fdf7fe7fd898ec/docker-compose.yml#L35
 
 Building Containers
 -------------------
