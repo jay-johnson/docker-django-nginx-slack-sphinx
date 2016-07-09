@@ -273,7 +273,6 @@ def handle_ajax_request(request):
     results     = build_def_result(status, err_msg, record)
 
     try:
-
         ################################################################################################
         #
         # Ajax handlers:
@@ -312,7 +311,8 @@ def handle_ajax_request(request):
         results     = build_def_result("Display Error", err_msg, record)
     # end of try/ex
 
-    return results
+    response_content = simplejson.dumps(results)
+    return HttpResponse(response_content, content_type="application/json")
 # end of handle_ajax_request
 
 
