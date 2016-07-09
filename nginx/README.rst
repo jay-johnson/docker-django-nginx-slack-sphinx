@@ -1,5 +1,5 @@
 ==================================
-Docker + Nginx for SSL and Non-SSL
+Docker + nginx for SSL and Non-SSL
 ==================================
 
 This is a repository_ for hosting a configurable docker + nginx container running on CentOS 7. I use this container for hosting HTTP traffic and static files for the Django server.
