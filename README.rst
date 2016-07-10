@@ -15,7 +15,7 @@ I built this to make running a Django + nginx website easier (and for decoupling
 .. _uWSGI: https://uwsgi-docs.readthedocs.io/en/latest/
 .. _non-ssl mode: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/nginx/containerfiles/non_ssl.conf
 .. _ssl.conf: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/nginx/containerfiles/ssl.conf
-.. _two working AJAX examples: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/templates/index.html#L298-L331
+.. _two working AJAX examples: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/templates/index.html#L298-L331
 .. _dj-ajax-demo.js: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/tree/master/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js
 
 Overview
@@ -27,13 +27,13 @@ The two containers mount a shared volume hosted at: ``/opt/web/`` and Django `de
 
 Lastly, there has been a part of me that wanted to stop battling Django `STATIC_ROOT 404 issues`_ once and for all.
 
-.. _Slack integration: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/docker-compose.yml#L39-L44
-.. _publishes exceptions: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/api.py#L40-L48
+.. _Slack integration: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/docker-compose.yml#L39-L44
+.. _publishes exceptions: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/api.py#L40-L48
 .. _sphinx-bootstrap-theme: https://github.com/ryan-roemer/sphinx-bootstrap-theme
 .. _bootstrap: http://getbootstrap.com/
 .. _multiple bootswatch themes: https://github.com/ryan-roemer/sphinx-bootstrap-theme/blob/bfb28af310ad5082fae01dc1ff08dab6ab3fa410/demo/source/conf.py#L146-L150
 .. _Slack driven development post: http://jaypjohnson.com/2016-06-15-slack-driven-development.html
-.. _deploys the static assets: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/settings.py#L143-L147
+.. _deploys the static assets: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/settings.py#L143-L147
 .. _bootswatch website: http://bootswatch.com/
 .. _bootswatch repository: https://github.com/thomaspark/bootswatch
 
@@ -61,11 +61,11 @@ Integrating with Google Search Console
 
     http://jaypjohnson.com/sitemap.xml
 
-.. _automatically build: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L106-L138
-.. _docs directory: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L114-L122
-.. _routes in the urls.py file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L124-L132
+.. _automatically build: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L106-L138
+.. _docs directory: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L114-L122
+.. _routes in the urls.py file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L124-L132
 .. _in the webapp directory: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/tree/master/django/containerfiles/django/wsgi/server/webapp
-.. _ENV_GOOGLE_ANALYTICS_CODE: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/docker-compose.yml#L45
+.. _ENV_GOOGLE_ANALYTICS_CODE: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/docker-compose.yml#L45
 
 2.  Automatic **robots.txt** creation
 
@@ -75,8 +75,8 @@ Integrating with Google Search Console
 
     For this initial release, the `robots.txt file`_ is just a flat, static file you can change anytime.
 
-.. _sitemap.xml: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/api.py#L165-L167
-.. _robots.txt file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L140-L145
+.. _sitemap.xml: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/api.py#L165-L167
+.. _robots.txt file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L140-L145
 
 SEO Meta Data
 -------------
@@ -90,7 +90,7 @@ SEO meta data is helpful when you share a link to your site over social media li
 .. note:: Please make sure the **rst** meta data uses the existing tags prefixed with ``SEO_META_`` as it is `parsed and injected during the deployment`_ of the container.
 
 .. _rst file can deploy SEO meta data: https://raw.githubusercontent.com/jay-johnson/docker-django-nginx-slack-sphinx/master/django/containerfiles/django/wsgi/server/webapp/docs/2016-07-10-sample-post.rst
-.. _parsed and injected during the deployment: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L61-L104
+.. _parsed and injected during the deployment: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/deploy-docs.sh#L61-L104
 
 2.  SEO meta data in the **html** files
 
@@ -98,10 +98,10 @@ SEO meta data is helpful when you share a link to your site over social media li
 
 .. note:: Right now the ``|`` character is a reserved character in the SEO meta data values. Please do now use it with this release.
     
-.. _html template file can deploy SEO meta data: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/templates/index.html#L11-L37
+.. _html template file can deploy SEO meta data: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/templates/index.html#L11-L37
 .. _centralized JSON file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/django/containerfiles/django/wsgi/server/webapp/meta_data_seo.json#L3-L13
-.. _parses this JSON file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/settings.py#L211-L213
-.. _meta data is retrieved and passed using the template context: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/api.py#L94-L98
+.. _parses this JSON file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/settings.py#L211-L213
+.. _meta data is retrieved and passed using the template context: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/api.py#L94-L98
 .. _Django Template documentation: https://docs.djangoproject.com/en/1.9/ref/templates/api/
 
 Slack Integration
@@ -117,8 +117,8 @@ http://localhost/slackerror/
 
 If it is working you should see the bot post a simple debugging message.
 
-.. _Slack env variables: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/docker-compose.yml#L39-L44
-.. _anything that is not True: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/settings.py#L155
+.. _Slack env variables: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/docker-compose.yml#L39-L44
+.. _anything that is not True: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/settings.py#L155
 
 Compose Environment Variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -184,7 +184,7 @@ This composition is using a version 2 `docker-compose.yml`_. It is setup to only
 
 .. _docker compose file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/docker-compose.yml
 .. _default bridge network: https://docs.docker.com/engine/userguide/networking/default_network/
-.. _uWSGI options: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/nginx/containerfiles/non_ssl.conf#L45-L55
+.. _uWSGI options: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/nginx/containerfiles/non_ssl.conf#L45-L55
 
 ::
 
@@ -272,9 +272,9 @@ If the composition is setup to run in **PROD** mode the Django container will ru
 .. warning:: The ``--thunder-lock`` parameter is an `experimental feature`_. To disable it just change the compose file's `ENV_SERVER_MODE`_ value from **PROD** to **STANDARD** (anything not DEV or PROD).
 
 .. _django-uwsgi.ini: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/django/containerfiles/django/wsgi/server/django-uwsgi.ini
-.. _thunder lock: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/start-container.sh#L25-L34
+.. _thunder lock: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/start-container.sh#L25-L34
 .. _experimental feature: http://uwsgi-docs.readthedocs.io/en/latest/articles/SerializingAccept.html#uwsgi-developers-are-fu-ing-cowards
-.. _ENV_SERVER_MODE: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/docker-compose.yml#L35
+.. _ENV_SERVER_MODE: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/docker-compose.yml#L35
 
 Building Containers
 -------------------
@@ -440,19 +440,19 @@ Sample Good AJAX Request
 
 The javascript handles the **Good** AJAX example in the `ajax_run_demo method`_ 
 
-.. _ajax_run_demo method: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L225-L287
+.. _ajax_run_demo method: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L225-L287
 
 The javascript handles the **Error** AJAX example in the `ajax_error_demo method`_ 
 
-.. _ajax_error_demo method: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L289-L353
+.. _ajax_error_demo method: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L289-L353
 
 Under the hood, the Django server handles these request in the same `POST handler`_ method which then passes the request object to the specific `handle post AJAX demo`_ method. The only difference between the Good case versus the Error case is that the javascript changes the requested data key from ``SendToServer_`` to ``TheServerDoesNotSupportThisKey_``. The Django server `examines these keys and returns the response`_ based off the input validation passing or failing.
 
-.. _POST handler: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/api.py#L349-L356
-.. _handle post AJAX demo: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/api.py#L389-L447
-.. _SendToServer: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L228
-.. _TheServerDoesNotSupportThisKey: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L292
-.. _examines these keys and returns the response: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/fb7ce4725d806d8a7aeb2ae90b20ff3718858a35/django/containerfiles/django/wsgi/server/webapp/api.py#L415-L430
+.. _POST handler: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/api.py#L349-L356
+.. _handle post AJAX demo: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/api.py#L389-L447
+.. _SendToServer: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L228
+.. _TheServerDoesNotSupportThisKey: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L292
+.. _examines these keys and returns the response: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/api.py#L415-L430
 
 Licenses
 ~~~~~~~~
