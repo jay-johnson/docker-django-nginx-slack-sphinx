@@ -308,7 +308,7 @@ Install and Setup
 
 #.  Test the ``http://localhost/home/`` page works from a browser
 
-    .. figure:: http://jaypjohnson.com/_images/image_2016-07-10_home-page-demo.png
+    .. figure:: http://jaypjohnson.com/_images/image_2016-07-10_home-page-demo-ajax.png
 
 #.  Test the ``http://localhost/home/`` page works from the command line
 
