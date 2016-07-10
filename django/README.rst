@@ -198,6 +198,55 @@ Or run the command:
     
     $ docker stop django-slack-sphinx
 
+Running Django without Docker or uWSGI
+--------------------------------------
+
+Here are the steps to run Django locally without docker and without uWSGI.
+
+1.  Install these pips on the host
+
+    ::
+        
+        $ sudo pip install sphinx slackclient uuid sphinx_bootstrap_theme requests django-redis MySQL-python psycopg2 pymongo SQLAlchemy alembic
+
+2.  Create the deployment workspace
+
+    ::
+
+        $ mkdir -p -m 777 /opt/containerfiles
+
+3.  Run the debug-django.sh_ deployment script (in the repository root directory)
+
+    ::
+
+        $ ./debug-django.sh 
+
+        Starting Django in debug mode
+
+        Destroying previous deployment
+
+        Creating temp Sphinx static dir
+
+        Installing new build
+
+        Deploying Django
+             - To debug the deploy-django.sh script run: tail -f /tmp/docsdeploy.log
+
+        Deploying Docs
+             - To debug the deploy-docs.sh script run: tail -f /tmp/deploy.log
+
+        Starting Django Server with home page: http://localhost:8000/home/
+        Performing system checks...
+
+        System check identified no issues (0 silenced).
+        July 10, 2016 - 02:51:48
+        Django version 1.8.3, using settings 'webapp.settings'
+        Starting development server at http://0.0.0.0:8000/
+        Quit the server with CONTROL-C.
+
+    .. _debug-django.sh: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/debug-django.sh
+
+4.  Confirm the Django website is available at: ``http://localhost:8000/home/``
 
 Licenses
 --------

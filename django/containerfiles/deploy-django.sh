@@ -1,13 +1,11 @@
 #!/bin/bash
-# This deploy hook gets executed after dependencies are resolved and the
-# build hook has been run but before the application has been started back
-# up again.  This script gets executed directly, so it could be python, php,
-# ruby, etc.
 
-log="/tmp/migrate.log"
+log="/tmp/docsdeploy.log"
+
+echo "     - To debug the deploy-django.sh script run: tail -f $log"
 
 if [ ! -f ${ENV_BASE_DATA_DIR}/secrets.json ]; then
-	echo "Generating ${ENV_BASE_DATA_DIR}/secrets.json"
+	echo "Generating ${ENV_BASE_DATA_DIR}/secrets.json" &>> $log
 	python ${ENV_BASE_REPO_DIR}/libs/secrets.py > ${ENV_BASE_DATA_DIR}/secrets.json 
 fi
 

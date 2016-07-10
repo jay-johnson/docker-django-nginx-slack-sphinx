@@ -2,10 +2,10 @@
 Django settings for webapp project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.8/topics/settings/
+https://docs.djangoproject.com/en/1.9/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.8/ref/settings/
+https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -44,6 +44,18 @@ ALLOWED_HOSTS = [
     #'www.example.com', # Second DNS alias (set up in the app)
 ]
 
+# For deploying locally without Docker and without uWSGI mode set this value to "DEV":
+if os.environ.get("ENV_SERVER_MODE") == "DEV":
+    BASE_DIR = "/opt/containerfiles/django/"
+    WSGI_DIR = "../"
+    REPO_DIR = "/opt/containerfiles/django/wsgi/"
+    DATA_DIR = os.environ.get('ENV_BASE_DATA_DIR', BASE_DIR)
+    DEBUG = True
+    ALLOWED_HOSTS = [
+        "0.0.0.0",
+        "localhost",
+    ]
+# end of local vs inside docker
 
 # Application definition
 
@@ -100,7 +112,7 @@ WSGI_APPLICATION = 'webapp.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -111,7 +123,7 @@ DATABASES = {
 }
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
+# https://docs.djangoproject.com/en/1.9/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 

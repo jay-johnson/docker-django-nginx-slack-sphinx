@@ -10,8 +10,8 @@ env | sort >> $log
 echo "$(date +'%m-%d-%y %H:%M:%S') " >> $log
 
 echo "$(date +'%m-%d-%y %H:%M:%S') Deploying Django" >> $log
-chmod 777 /opt/containerfiles/deploy_django.sh
-/opt/containerfiles/deploy_django.sh &>> $log
+chmod 777 /opt/containerfiles/deploy-django.sh
+/opt/containerfiles/deploy-django.sh &>> $log
 echo "$(date +'%m-%d-%y %H:%M:%S') Done Deploying Django" >> $log
 
 echo "$(date +'%m-%d-%y %H:%M:%S') Starting($ENV_SERVER_MODE)" >> $log

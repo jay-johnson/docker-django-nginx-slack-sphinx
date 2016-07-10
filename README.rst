@@ -6,7 +6,7 @@ This is a repository for deploying a Django + nginx stack using docker compose.
 
 .. figure:: http://jaypjohnson.com/_images/image_2016-07-10_docker-django-nginx-slack-sphinx.png
 
-I built this to make running a Django + nginx website easier (and for decoupling my sites from only running on AWS EC2 AMIs). It uses `docker compose`_ to deploy two containers (django-nginx_ and django-slack-sphinx_) and shares a mounted host volume between the two containers. For now, this runs Django 1.9 in uWSGI_ mode and publishes errors directly to a configurable Slack channel for debugging. By default the nginx container is running in `non-ssl mode`_, but the container and repo include an ssl.conf_ file as a reference for extending as needed.
+I built this to make running a Django + nginx website easier (and for decoupling my sites from only running on AWS EC2 AMIs). It uses `docker compose`_ to deploy two containers (django-nginx_ and django-slack-sphinx_) and shares a mounted host volume between the two containers. For now, this runs Django 1.9 in uWSGI_ mode and publishes errors directly to a configurable Slack channel for debugging. By default the nginx container is running in `non-ssl mode`_, but the container and repo include an ssl.conf_ file as a reference for extending as needed. There is also a way to run the Django server locally without docker and without uWSGI using the debug-django.sh_ script.
 
 .. _STATIC_ROOT 404 issues: http://stackoverflow.com/questions/12809416/django-static-files-404
 .. _docker compose: https://docs.docker.com/compose/
@@ -375,6 +375,56 @@ If you want to stop and cleanup the site and docker containers run these command
     :: 
 
         $ rm -rf /opt/web/static
+
+Running Django without Docker or uWSGI
+--------------------------------------
+
+Here are the steps to run Django locally without docker and without uWSGI.
+
+1.  Install these pips on the host
+
+    ::
+        
+        $ sudo pip install sphinx slackclient uuid sphinx_bootstrap_theme requests django-redis MySQL-python psycopg2 pymongo SQLAlchemy alembic
+
+2.  Create the deployment workspace
+
+    ::
+
+        $ mkdir -p -m 777 /opt/containerfiles
+
+3.  Run the debug-django.sh_ deployment script
+
+    ::
+
+        $ ./debug-django.sh 
+
+        Starting Django in debug mode
+
+        Destroying previous deployment
+
+        Creating temp Sphinx static dir
+
+        Installing new build
+
+        Deploying Django
+             - To debug the deploy-django.sh script run: tail -f /tmp/docsdeploy.log
+
+        Deploying Docs
+             - To debug the deploy-docs.sh script run: tail -f /tmp/deploy.log
+
+        Starting Django Server with home page: http://localhost:8000/home/
+        Performing system checks...
+
+        System check identified no issues (0 silenced).
+        July 10, 2016 - 02:51:48
+        Django version 1.8.3, using settings 'webapp.settings'
+        Starting development server at http://0.0.0.0:8000/
+        Quit the server with CONTROL-C.
+
+    .. _debug-django.sh: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/debug-django.sh
+
+4.  Confirm the Django website is available at: ``http://localhost:8000/home/``
 
 Licenses
 --------

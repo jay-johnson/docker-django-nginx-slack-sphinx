@@ -33,7 +33,7 @@ master_doc = 'docs'
 
 # General information about the project.
 project = u'Docs'
-copyright = u'2016 Jay Johnson'
+copyright = u'2016 YOUR NAME in the server/webapp/docs/conf.py'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -250,7 +250,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('docs', 'Docs.tex', u'WebsiteDocs',
-   u'Jay Johnson', 'manual'),
+   u'YOUR NAME', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -280,7 +280,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('docs', 'Docs', u'WebsiteDocs',
-     [u'Jay Johnson'], 1)
+     [u'YOUR NAME'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -294,7 +294,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('docs', 'Docs', u'Docs',
-   u'Jay Johnson', 'WebsiteDocs', 'WebsiteDocs',
+   u'YOUR NAME', 'WebsiteDocs', 'WebsiteDocs',
    'Miscellaneous'),
 ]
 
