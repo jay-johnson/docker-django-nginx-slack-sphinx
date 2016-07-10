@@ -6,7 +6,7 @@ This is a repository for deploying a Django + nginx stack using docker compose.
 
 .. figure:: http://jaypjohnson.com/_images/image_2016-07-10_docker-django-nginx-slack-sphinx.png
 
-I built this to make running a Django + nginx website easier (and for decoupling my sites from only running on AWS EC2 AMIs). It uses `docker compose`_ to deploy two containers (django-nginx_ and django-slack-sphinx_) and shares a mounted host volume between the two containers. For now, this runs Django 1.9 in uWSGI_ mode and publishes errors directly to a configurable Slack channel for debugging. By default the nginx container is running in `non-ssl mode`_, but the container and repo include an ssl.conf_ file as a reference for extending as needed. There is also a way to run the Django server locally without docker and without uWSGI using the debug-django.sh_ script. The Django server also comes with `two AJAX examples` in the dj-ajax-demo.js_ file. 
+I built this to make running a Django + nginx website easier (and for decoupling my sites from only running on AWS EC2 AMIs). It uses `docker compose`_ to deploy two containers (django-nginx_ and django-slack-sphinx_) and shares a mounted host volume between the two containers. For now, this runs Django 1.9 in uWSGI_ mode and publishes errors directly to a configurable Slack channel for debugging. By default the nginx container is running in `non-ssl mode`_, but the container and repo include an ssl.conf_ file as a reference for extending as needed. There is also a way to run the Django server locally without docker and without uWSGI using the debug-django.sh_ script. The Django server also comes with `two AJAX examples`_ in the dj-ajax-demo.js_ file. 
 
 .. _STATIC_ROOT 404 issues: http://stackoverflow.com/questions/12809416/django-static-files-404
 .. _docker compose: https://docs.docker.com/compose/
@@ -15,13 +15,13 @@ I built this to make running a Django + nginx website easier (and for decoupling
 .. _uWSGI: https://uwsgi-docs.readthedocs.io/en/latest/
 .. _non-ssl mode: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/nginx/containerfiles/non_ssl.conf
 .. _ssl.conf: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/nginx/containerfiles/ssl.conf
-.. _two working AJAX examples: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/templates/index.html#L298-L331
+.. _two AJAX examples: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/templates/index.html#L298-L331
 .. _dj-ajax-demo.js: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/tree/master/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js
 
 Overview
 --------
 
-I built this composition for hosting a Django server that is easy to debug using a `Slack integration`_ because it `publishes exceptions`_ and automatically converts **rst** documentation into stylized html via the sphinx-bootstrap-theme_ with bootstrap_ and includes `multiple bootswatch themes`_. For more details on this workflow, please refer to my previous `Slack driven development post`_. 
+I built this composition for hosting a Django server that is easy to debug using a `Slack integration`_ because it `publishes exceptions`_ and automatically converts **rst** documentation into stylized html via the sphinx-bootstrap-theme_ with bootstrap_ and includes `multiple bootswatch themes`_. For more details on the Slack workflow, please refer to my previous `Slack driven development post`_. 
 
 The two containers mount a shared volume hosted at: ``/opt/web/`` and Django `deploys the static assets`_ to ``/opt/web/static`` for hosting using nginx. Before now, I had to bake EC2 AMIs to run Django and nginx together and this just felt tedious to update and maintain. I want to have the option to not run on AWS and docker is a great tool for helping in this effort. I drink the docker kool-aid...containers make it easier to build, ship and run complex technical components like lego blocks. I also included directories for rebuilding or extending each container as needed in the repository.
 
@@ -96,7 +96,7 @@ SEO meta data is helpful when you share a link to your site over social media li
 
     Each `html template file can deploy SEO meta data`_ by storing it in a `centralized JSON file`_ that is referenced by the URL. On startup Django `parses this JSON file`_ and then whenever the page's URL is requested the `meta data is retrieved and passed using the template context`_ for building the html template. Please refer to the `Django Template documentation`_ for more information on how these internals work.
 
-.. note:: Right now the ``|`` character is a reserved character in the SEO meta data values. Please do now use it with this release.
+.. warning:: Right now the ``|`` character is a reserved character in the SEO meta data values. Please do now use it with this release.
     
 .. _html template file can deploy SEO meta data: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/templates/index.html#L11-L37
 .. _centralized JSON file: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/django/containerfiles/django/wsgi/server/webapp/meta_data_seo.json#L3-L13
