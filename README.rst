@@ -446,7 +446,7 @@ The javascript handles the **Error** AJAX example in the `ajax_error_demo method
 
 .. _ajax_error_demo method: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L289-L353
 
-Under the hood, the Django server handles these request in the same `POST handler`_ method which then passes the request object to the specific `handle post AJAX demo`_ method. The only difference between the Good case versus the Error case is that the javascript changes the requested data key from ``SendToServer_`` to ``TheServerDoesNotSupportThisKey_``. The Django server `examines these keys and returns the response`_ based off the input validation passing or failing.
+Under the hood, the Django server handles these request in the same `POST handler`_ method which then passes the request object to the specific `handle post AJAX demo`_ method. The only difference between the Good case versus the Error case is that the javascript changes the requested data key from SendToServer_ to TheServerDoesNotSupportThisKey_. The Django server `examines these keys and returns the response`_ based off the input validation passing or failing.
 
 .. _POST handler: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/api.py#L349-L356
 .. _handle post AJAX demo: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/django/containerfiles/django/wsgi/server/webapp/api.py#L389-L447
