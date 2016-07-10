@@ -21,8 +21,8 @@ urlpatterns = [
     # Technical Docs:
     url(r'^docs/',          api.handle_docs,                    name='docs'),
 
-    # Account AJAX Server-side Processing URLs:
-    url(r'^.*/webapi/$',    api.handle_ajax_request,            name="ajaxhandler"),
+    # AJAX Server-side Processing URLs:
+    url(r'^webapi/',        api.handle_ajax_request,            name="ajaxhandler"),
 
     # Sitemap:
     url(r'^sitemap\.xml$',  api.internal_sitemap_xml,           name="sitemapxml"),

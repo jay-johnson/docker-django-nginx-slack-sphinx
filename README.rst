@@ -6,7 +6,7 @@ This is a repository for deploying a Django + nginx stack using docker compose.
 
 .. figure:: http://jaypjohnson.com/_images/image_2016-07-10_docker-django-nginx-slack-sphinx.png
 
-I built this to make running a Django + nginx website easier (and for decoupling my sites from only running on AWS EC2 AMIs). It uses `docker compose`_ to deploy two containers (django-nginx_ and django-slack-sphinx_) and shares a mounted host volume between the two containers. For now, this runs Django 1.9 in uWSGI_ mode and publishes errors directly to a configurable Slack channel for debugging. By default the nginx container is running in `non-ssl mode`_, but the container and repo include an ssl.conf_ file as a reference for extending as needed. There is also a way to run the Django server locally without docker and without uWSGI using the debug-django.sh_ script.
+I built this to make running a Django + nginx website easier (and for decoupling my sites from only running on AWS EC2 AMIs). It uses `docker compose`_ to deploy two containers (django-nginx_ and django-slack-sphinx_) and shares a mounted host volume between the two containers. For now, this runs Django 1.9 in uWSGI_ mode and publishes errors directly to a configurable Slack channel for debugging. By default the nginx container is running in `non-ssl mode`_, but the container and repo include an ssl.conf_ file as a reference for extending as needed. There is also a way to run the Django server locally without docker and without uWSGI using the debug-django.sh_ script. The Django server also comes with `two AJAX examples` in the dj-ajax-demo.js_ file. 
 
 .. _STATIC_ROOT 404 issues: http://stackoverflow.com/questions/12809416/django-static-files-404
 .. _docker compose: https://docs.docker.com/compose/
@@ -15,6 +15,8 @@ I built this to make running a Django + nginx website easier (and for decoupling
 .. _uWSGI: https://uwsgi-docs.readthedocs.io/en/latest/
 .. _non-ssl mode: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/nginx/containerfiles/non_ssl.conf
 .. _ssl.conf: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/master/nginx/containerfiles/ssl.conf
+.. _two working AJAX examples: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/3a48f4cc51192ad4a4ba21c3b2fca930aeb8454b/docker/stack-django/django/containerfiles/django/wsgi/server/webapp/templates/index.html#L296-L327 
+.. _dj-ajax-demo.js: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/tree/master/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js
 
 Overview
 --------
@@ -428,8 +430,32 @@ Here are the steps to run Django locally without docker and without uWSGI.
 
 4.  Confirm the Django website is available at: ``http://localhost:8000/home/``
 
+AJAX Examples
+-------------
+
+There are two AJAX examples included in the server. Both of which are handled by the dj-ajax-demo.js_ file and available on the http://localhost/home/ page (just click the green and red buttons).
+
+Sample Good AJAX Request
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The javascript handles the **Good** AJAX example in the `ajax_run_demo method`_ 
+
+.. _ajax_run_demo method: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/c8c0df3449b4a8e8fdf89aeb1ff451bc9f453c5d/docker/stack-django/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L225-L287
+
+The javascript handles the **Error** AJAX example in the `ajax_error_demo method`_ 
+
+.. _ajax_error_demo: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/c8c0df3449b4a8e8fdf89aeb1ff451bc9f453c5d/docker/stack-django/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L289-L353
+
+Under the hood, the Django server handles these request in the same `POST handler`_ method which then passes the request object to the specific `handle post AJAX demo`_ method. The only difference between the Good case versus the Error case is that the javascript changes the requested data key from ``SendToServer_`` to ``TheServerDoesNotSupportThisKey_``. The Django server `examines these keys and returns the response`_ based off the input validation passing or failing.
+
+.. _POST handler: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/c8c0df3449b4a8e8fdf89aeb1ff451bc9f453c5d/docker/stack-django/django/containerfiles/django/wsgi/server/webapp/api.py#L349-L356
+.. _handle post AJAX demo: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/c8c0df3449b4a8e8fdf89aeb1ff451bc9f453c5d/docker/stack-django/django/containerfiles/django/wsgi/server/webapp/api.py#L389-L447
+.. _SendToServer: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/c8c0df3449b4a8e8fdf89aeb1ff451bc9f453c5d/docker/stack-django/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L228
+.. _TheServerDoesNotSupportThisKey: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/c8c0df3449b4a8e8fdf89aeb1ff451bc9f453c5d/docker/stack-django/django/containerfiles/django/wsgi/static/js/dj-ajax-demo.js#L292
+.. _examines these keys and returns the response: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/c8c0df3449b4a8e8fdf89aeb1ff451bc9f453c5d/docker/stack-django/django/containerfiles/django/wsgi/server/webapp/api.py#L415-L430
+
 Licenses
---------
+~~~~~~~~
 
 This repository is licensed under the MIT license.
 

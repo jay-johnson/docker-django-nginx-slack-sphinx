@@ -40,7 +40,7 @@
     <link rel="stylesheet" type="text/css" href="{% static "pygments.css" %}"/>
     <link rel="stylesheet" type="text/css" href="{% static "bootswatch-3.3.6/united/bootstrap.min.css" %}"/>
     <link rel="stylesheet" type="text/css" href="{% static "bootstrap-sphinx.css" %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
     <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
     <script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
@@ -70,6 +70,9 @@
         HAS_SOURCE:  false
       };
     </script>
+
+    <script type="text/javascript" src="{% static "js/dj-ajax-demo.js" %}"></script>
+
 <style>
 
 /*!
@@ -253,11 +256,21 @@ line-height: 1.4;
   font-family: Menlo,Monaco,"Liberation Mono",Consolas,monospace !important;
 }
 
+.error-field {
+    border-color: #ff4136;
+    -moz-box-shadow: 0px 0px 8px #ff4136;
+    box-shadow: 0px 0px 8px #ff4136;
+    -khtml-box-shadow: 0px 0px 8px #ff4136;
+    -webkit-box-shadow: 0px 0px 8px #ff4136;
+}
+
 </style>
 
 </head>
 <body>
 <section class='container'>
+
+        {% csrf_token %}
 
         <hgroup>
           <h1>Welcome to a Docker + Django Demo Site</h1>
@@ -268,7 +281,7 @@ line-height: 1.4;
           <section class='col-xs-12 col-sm-6 col-md-6'>
 
             <section>
-              <h2>Overview</h2>
+              <h1>Overview</h1>
               <p>
                 This site is running <a href="https://www.djangoproject.com/" target="_blank">Django</a> + <a href="https://www.nginx.com/" target="_blank">nginx</a> + <a href="https://slack.com/" target="_blank">Slack</a> + <a href="https://uwsgi-docs.readthedocs.io/en/latest/" target="_blank">uWSGI</a> with <a href="https://docs.docker.com/compose/" target="_blank">docker compose</a> for hosting a stylized HTML using <a href="http://www.sphinx-doc.org/en/stable/" target="_blank">Sphinx</a> + <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> + <a href="https://bootswatch.com/" target="_blank">Bootswatch</a>
                 <img src="{% static "_images/image_logo.png" %}" alt="Docker Compose - Django + nginx + Slack + uWSGI + Sphinx + Bootstrap + Bootswatch"class="img-responsive">
@@ -279,25 +292,63 @@ line-height: 1.4;
           
           
           <section class='col-xs-12 col-sm-6 col-md-6'>
+            
+            <div class='col-xs-12 col-sm-12 col-md-12'>
 
-            <section>
-              <h2>Technical Documentation for this site</h2>
-              <p>
-                This site automatically hosts <a href="/docs/docs.html" target="_blank">technical documentation</a> written in RST and converts it into stylized html.
-              </p>
-            </section>
+                <section>
+                  <h1>Sample Django Ajax Demos</h1>
+                    <p>
+                      Test your Django server is responding to Ajax Requests (Make sure to open the 'Javascript Console' to view the logs):
+                    </p>
 
-            <section>
-              <h2>Slack Driven Development</h2>
-                <p>
-                  Test your Slack integration using the <a href="https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/3a48f4cc51192ad4a4ba21c3b2fca930aeb8454b/django/containerfiles/django/wsgi/server/webapp/api.py#L236-L258" target="_blank">Django api handler</a> with this link: <a href="/slackerror/" target="_blank">Send an exception message to Slack using Django</a>
-                </p>
+                    <p>
+                      <div class='col-xs-12 col-sm-6 col-md-6'>
+                        <button type="button" class="btn btn-success ajax-run-demo" id="ajax-run-demo">Run Ajax Demo <i class="fa fa-rocket"></i></button>
+                      </div>
+                      <div class='col-xs-12 col-sm-6 col-md-6'>
+                        <div class="ajax-run-demo-status"></div>
+                      </div>
+                      <div class='col-xs-12 col-sm-12 col-md-12'>
+                        <div class="ajax-run-demo-results"></div>
+                      </div>
+                    </p>
 
-                <p>
-                  If you did not see the message posted into the Slack channel. Confirm the docker-compose.yml file has the <a href="https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/3a48f4cc51192ad4a4ba21c3b2fca930aeb8454b/docker-compose.yml#L39-L44" target="_blank">Slack environment variables</a> set correctly and the bot has been invited to the correct Slack channel.
-                </p>
-            </section>
+                    <br>
 
+                    <p>
+                      <div class='col-xs-12 col-sm-6 col-md-6'>
+                        <button type="button" class="btn btn-danger ajax-err-demo" id="ajax-err-demo">Run Error Demo <i class="fa fa-bomb"></i></button>
+                      </div>
+                      <div class='col-xs-12 col-sm-6 col-md-6'>
+                        <div class="ajax-err-demo-status"></div>
+                      </div>
+                      <div class='col-xs-12 col-sm-12 col-md-12'>
+                        <div class="ajax-err-demo-results"></div>
+                      </div>
+                    </p>
+
+                    <br>
+                </section>
+
+                <section>
+                  <h1>Technical Documentation for this site</h1>
+                  <p>
+                    This site automatically hosts <a href="/docs/docs.html" target="_blank">technical documentation</a> written in RST and converts it into stylized html.
+                  </p>
+                </section>
+
+                <section>
+                  <h1>Slack Driven Development</h1>
+                    <p>
+                      Test your Slack integration using the <a href="https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/3a48f4cc51192ad4a4ba21c3b2fca930aeb8454b/django/containerfiles/django/wsgi/server/webapp/api.py#L236-L258" target="_blank">Django api handler</a> with this link: <a href="/slackerror/" target="_blank">Send an exception message to Slack using Django</a>
+                    </p>
+
+                    <p>
+                      If you did not see the message posted into the Slack channel. Confirm the docker-compose.yml file has the <a href="https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/3a48f4cc51192ad4a4ba21c3b2fca930aeb8454b/docker-compose.yml#L39-L44" target="_blank">Slack environment variables</a> set correctly and the bot has been invited to the correct Slack channel.
+                    </p>
+                </section>
+
+            </div>
           </section>
           
 

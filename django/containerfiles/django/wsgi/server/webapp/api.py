@@ -282,7 +282,15 @@ def handle_ajax_request(request):
                 lg("Processing POST-ed AJAX", 6)
                 status      = "SUCCESS"
                 err_msg     = ""
-                record      = {}
+                post_results= handle_ajax_post(request)
+                if post_results["Status"] != "SUCCESS":
+                    lg("ERROR: POST had error: " + str(post_results["Error"]), 0)
+                # end of if not successful
+
+                # Assign final results before sending back to the client: 
+                status      = post_results["Status"]
+                err_msg     = post_results["Error"]
+                record      = post_results["Record"]
 
             elif request.method == "GET": 
                 lg("Processing GET AJAX", 6)
@@ -314,5 +322,128 @@ def handle_ajax_request(request):
     response_content = simplejson.dumps(results)
     return HttpResponse(response_content, content_type="application/json")
 # end of handle_ajax_request
+
+
+
+################################################################################################
+#
+# POST Handlers:
+#
+def handle_ajax_post(request):
+
+    status      = "Display Error"
+    err_msg     = "Failed to Process Post" 
+    record      = {
+                    "StatusDiv" : "",
+                    "ResultDiv" : ""
+                }
+    try:
+        posted_hash     = simplejson.loads(request.body)
+
+        if "Action" not in posted_hash:
+            status      = "Display Error"
+            err_msg     = "Missing 'Action' Key in POST"
+        else:
+            action      = str(posted_hash["Action"])
+
+            lg("POST - Processing(" + str(action) + ")", 6)
+
+            if action == "AjaxDemo":
+                proc_rs = handle_post_ajax_demo(posted_hash)
+                status  = str(proc_rs["Status"])
+                err_msg = str(proc_rs["Error"])
+                record  = proc_rs["Record"]
+            # end of AjaxDemo
+
+            else:
+                status  = "Display Error"
+                err_msg = "Unsupported Ajax Action(" + str(action) + ")"
+                lg("ERROR: Failed POST" + str(err_msg), 0)
+
+                # If Slack is enabled, send the unsupported error:
+                if settings.SEND_EX_TO_SLACK:
+                    slack_msg = SlackMessenger(settings.USE_THIS_SLACK_CONFIG)
+                    slack_msg.handle_send_slack_internal_ex(err_msg)
+                # end of if send to slack 
+
+            # end of if a supported server-side action
+
+        # end of handling all Posts
+
+        # Assign final results:
+        results         = build_def_result(status, err_msg, record)
+
+    except Exception,e:
+        results         = build_def_result("Display Error", "Failed to decode Post-ed JSON with Ex(" + str(e) + ")", record)
+        lg("ERROR: " + str(e), 0)
+        process_exception(e)
+    # end of try/ex
+
+    return results
+# end of handle_ajax_post
+
+
+# Specific POST Handlers:
+
+
+def handle_post_ajax_demo(posted_hash):
+
+    action      = "AjaxDemo"
+    status      = "Display Error"
+    err_msg     = "Failed to Process Post"
+    web_st_div  = ""
+    web_rs_div  = ""
+    record      = {
+                    "StatusDiv" : "",
+                    "ResultDiv" : "",
+                    "ResData"   : {}
+                }
+    results     = build_def_result(status, err_msg, record)
+
+    try:
+        lg("Running Server-side(" + str(action) + ")", 6)
+
+        # Assign the placeholders for coordinated server <-> client interaction for status and result fields
+        web_st_div      = str(posted_hash["StatusDiv"])
+        web_rs_div      = str(posted_hash["ResultDiv"])
+        now             = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        rq_data         = json.loads(posted_hash["Data"])
+        rs_data         = {
+                            "Response"  : str(now) + " - Failed to Process"
+                        }
+
+        # Assume the demo is sending a key with SendToServer in the json...otherwise process it as a bad Post message
+        if "SendToServer" in rq_data:
+            lg("Valid(" + str(action) + ") Received(" + str(rq_data["SendToServer"]) + ")", 6)
+            status      = "SUCCESS"
+            err_msg     = "SUCCESS"
+            rs_data     = {
+                            "Response"  : str(now) + " - Server Received: " + str(rq_data["SendToServer"])
+                        }
+        else:
+            lg("Invalid(" + str(action) + ") Received(" + str(rq_data) + ")", 6)
+            status      = "Display Error"
+            err_msg     = "Missing 'SendToServer' Value in the POST Data"
+            rs_data     = {
+                            "Response"  : str(now) + " - Server Error: " + str(err_msg)
+                        }
+        # end of processing the POST-ed json requested rq_data 
+
+        # Assign final results:
+        record      = {
+                        "StatusDiv" : web_st_div,
+                        "ResultDiv" : web_rs_div,
+                        "ResData"   : rs_data
+                    }
+        results     = build_def_result(status, err_msg, record)
+
+    except Exception,e:
+        results     = build_def_result("Display Error", "Failed to Process Action(" + str(action) + ") with Ex(" + str(e) + ")", record)
+        lg("ERROR: " + str(e), 0)
+        process_exception(e)
+    # end of try/ex
+
+    return results
+# end of handle_post_ajax_demo
 
 
