@@ -19,8 +19,8 @@ Overview
 
 I built this composition for hosting a CentOS 7 Django 1.9 server that is easy to debug using a `Slack integration`_ because it `publishes exceptions`_ and automatically converts **rst** documentation into stylized html via the sphinx-bootstrap-theme_ with bootstrap_ and includes `multiple bootswatch themes`_. For more details on this workflow, please refer to my previous `Slack driven development post`_. 
 
-.. _Slack integration: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/4d8b5360a514d03dce7f420643cee958c1ac9669/docker-compose.yml#L39-L44
-.. _publishes exceptions: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/4d8b5360a514d03dce7f420643cee958c1ac9669/django/containerfiles/django/wsgi/server/webapp/api.py#L40-L48
+.. _Slack integration: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/3a48f4cc51192ad4a4ba21c3b2fca930aeb8454b/docker-compose.yml#L39-L44
+.. _publishes exceptions: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/3a48f4cc51192ad4a4ba21c3b2fca930aeb8454b/django/containerfiles/django/wsgi/server/webapp/api.py#L40-L48
 .. _sphinx-bootstrap-theme: https://github.com/ryan-roemer/sphinx-bootstrap-theme
 .. _bootstrap: http://getbootstrap.com/
 .. _multiple bootswatch themes: https://github.com/ryan-roemer/sphinx-bootstrap-theme/blob/bfb28af310ad5082fae01dc1ff08dab6ab3fa410/demo/source/conf.py#L146-L150
