@@ -142,9 +142,12 @@ node {
     
     currentBuild.result = 'SUCCESS'
     
-    // V2 - Add Compose Testing with as another build item
-    
-    // Note - Make sure to set the throttle the builds because the docker containers
-    
-    // Note - After this runs make sure to clean up the images to prevent docker image builds from persistening across builds
+    ///////////////////////////////////////
+    //
+    // Coming Soon Feature Enhancements
+    //
+    // 1. Add Docker Compose testing as a new Pipeline item that is initiated after this one for "Integration" testing
+    // 2. Make sure to set the Pipeline's "Throttle builds" to 1 because the docker containers will collide on resources like ports and names
+    // 3. Should be able to parallelize the docker.withRegistry() methods to ensure the container is running on the slave
+    // 4. After the tests finish (and before they start), clean up container images to prevent stale docker image builds from affecting the current test run
 }
