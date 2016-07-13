@@ -19,7 +19,7 @@ I built this container so I could have an extensible nginx container that could 
 
 By default the nginx server assumes there is `Django server upstream`_ on a machine named ``webserver`` listening on port **85**.
 
-.. _Django server upstream: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/d767796e206f048dd435dd170d9c9f5311ec410a/nginx/containerfiles/non_ssl.conf#L27-L29
+.. _Django server upstream: https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/a7d5678153a50d3207d90317aba4d1c600965e69/nginx/containerfiles/non_ssl.conf#L27-L29
 
 Environment Variables
 ~~~~~~~~~~~~~~~~~~~~~
