@@ -193,7 +193,7 @@ This composition is using a version 2 `docker-compose.yml`_. It is setup to only
     services:
 
       webnginx:
-        image: jayjohnson/django-nginx
+        image: jayjohnson/django-nginx:1.0.0
         container_name: "webnginx"
         hostname: "webnginx"
         environment:
@@ -209,7 +209,7 @@ This composition is using a version 2 `docker-compose.yml`_. It is setup to only
           - webstack
 
       webserver:
-        image: jayjohnson/django-slack-sphinx
+        image: jayjohnson/django-slack-sphinx:1.0.0
         container_name: "webserver"
         hostname: "webserver"
         environment:

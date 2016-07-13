@@ -3,7 +3,7 @@ version: '2'
 services:
 
   webnginx:
-    image: jayjohnson/django-nginx:1.0.0
+    image: jayjohnson/django-nginx:testing
     container_name: "webnginx"
     hostname: "webnginx"
     environment:
@@ -19,7 +19,7 @@ services:
       - webstack
 
   webserver:
-    image: jayjohnson/django-slack-sphinx:1.0.0
+    image: jayjohnson/django-slack-sphinx:testing
     container_name: "webserver"
     hostname: "webserver"
     environment:
