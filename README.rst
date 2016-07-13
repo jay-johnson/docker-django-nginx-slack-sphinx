@@ -342,11 +342,11 @@ If you want to stop and cleanup the site and docker containers run these command
 
     ::
 
-        $ docker ps
-        CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS                   PORTS                                      NAMES
-        fa93f6b30a34        jayjohnson/django-nginx          "/root/containerfiles"   9 minutes ago       Up 14 seconds            0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   webnginx
-        0adba5cf4601        jayjohnson/django-slack-sphinx   "/opt/containerfiles/"   58 minutes ago      Up 14 seconds            80/tcp, 443/tcp                            webserver
+        $ docker ps -a
+        12107eaffda7        jayjohnson/django-nginx:1.0.0          "/root/containerfiles"   15 minutes ago      Up 14 minutes       0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp           webnginx
+        783474ddcd77        jayjohnson/django-slack-sphinx:1.0.0   "/opt/containerfiles/"   About an hour ago   Up 14 minutes       80/tcp, 443/tcp                                    webserver
         $
+
 
 #.  Stop the composition
 
@@ -372,7 +372,7 @@ If you want to stop and cleanup the site and docker containers run these command
 
     ::
 
-        $ docker rmi jayjohnson/django-nginx jayjohnson/django-slack-sphinx
+        $ docker rmi jayjohnson/django-nginx:1.0.0 jayjohnson/django-slack-sphinx:1.0.0
 
 #.  Remove the site's static directory
 
