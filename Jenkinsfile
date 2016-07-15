@@ -95,12 +95,11 @@ node {
                         FORCE_GROOVY_TO_FAIL_RIGHT_HERE_WITH_AN_EXCEPTION
                     }
                     
-                    // Now validate the results
+                    // Now validate the results match the expected results
                     stage "Test(${test_num}) - Validate Results"
                     test_results = readFile '/tmp/test_results'
                     echo "Test(${test_num}) Results($test_results) == Expected(${expected_results})"
                     sh "if [ \"${test_results}\" != \"${expected_results}\" ]; then echo \" --------------------- Test(${test_num}) Failed--------------------\"; echo \" - Test(${test_num}) Failed\"; echo \" - Test(${test_num}) Failed\";exit 1; else echo \" - Test(${test_num}) Passed\"; exit 0; fi"
-                    sh "docker exec -t ${env.CONTAINER_NAME} curl -s http://localhost/home/ | grep Welcome"
                     echo "Done Running Test(${test_num})"
                 
                     // cleanup after the test run
