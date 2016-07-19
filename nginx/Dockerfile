@@ -13,7 +13,7 @@ LABEL ImageOS=$basename
 LABEL Version=$version
 
 RUN yum -y install epel-release; yum clean all
-RUN yum -y install python-pip; yum clean all; pip install --upgrade pip; yum -y install vim telnet curl mlocate logrotate rsyslog cron tar openssl openssl-dev
+RUN yum -y install python-pip; yum clean all; pip install --upgrade pip; yum -y install vim telnet curl mlocate logrotate rsyslog cron tar openssl openssl-dev net-tools
 
 # Set default environment variables.
 ENV HOME /root

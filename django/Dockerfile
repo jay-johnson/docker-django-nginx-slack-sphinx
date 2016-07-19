@@ -14,7 +14,7 @@ LABEL Version=$version
 
 # Update and install django
 RUN yum -y update; yum -y install epel-release; yum clean all
-RUN yum -y install python-pip; yum clean all; pip install --upgrade pip; yum -y install git sqlite vim wget mlocate cron rsyslog logrotate gcc telnet curl tar python-devel mariadb-devel postgresql-devel
+RUN yum -y install python-pip; yum clean all; pip install --upgrade pip; yum -y install git sqlite vim wget mlocate cron rsyslog logrotate gcc telnet curl tar python-devel mariadb-devel postgresql-devel net-tools
 RUN pip install --upgrade Django sphinx slackclient uuid sphinx_bootstrap_theme requests django-redis uwsgi MySQL-python psycopg2 pymongo SQLAlchemy alembic
 
 # Set default environment variables.
