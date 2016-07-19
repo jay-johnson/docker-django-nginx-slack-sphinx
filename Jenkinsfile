@@ -30,7 +30,7 @@ node {
 
         stage "Building"
         echo "Building Django with docker.build(${maintainer_name}/${container_name}:${build_tag})"
-        def container = docker.build("${maintainer_name}/${container_name}:${build_tag}", 'django')
+        container = docker.build("${maintainer_name}/${container_name}:${build_tag}", 'django')
         try {
             
             // Start Testing
@@ -67,7 +67,7 @@ node {
                     
                 // this pipeline is using 3 tests 
                 // by setting it to more than 3 you can test the error handling and see the pipeline Stage View error message
-                def MAX_TESTS = 3
+                MAX_TESTS = 3
                 for (test_num = 0; test_num < MAX_TESTS; test_num++) {     
                    
                     echo "Running Test(${test_num})"
@@ -115,7 +115,7 @@ node {
             }
             
         } catch (Exception err) {
-            def err_msg = "Test had Exception(${err})"
+            err_msg = "Test had Exception(${err})"
             currentBuild.result = 'FAILURE'
             error "FAILED - Stopping build for Error(${err_msg})"
         }
