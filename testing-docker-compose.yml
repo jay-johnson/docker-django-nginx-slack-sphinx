@@ -6,10 +6,8 @@ services:
     image: jayjohnson/django-nginx:testing
     container_name: "webnginx"
     hostname: "webnginx"
-    environment:
-      - ENV_BASE_NGINX_CONFIG=/root/containerfiles/base_nginx.conf
-      - ENV_DERIVED_NGINX_CONFIG=/root/containerfiles/non_ssl.conf
-      - ENV_DEFAULT_ROOT_VOLUME=/opt/web
+    env_file: 
+      - ./testing.env
     ports:
       - "80:80"
       - "443:443"
@@ -17,32 +15,12 @@ services:
       - /opt/web:/opt/web
     networks:
       - webstack
-
   webserver:
     image: jayjohnson/django-slack-sphinx:testing
     container_name: "webserver"
     hostname: "webserver"
-    environment:
-      - ENV_BASE_HOMEDIR=/opt
-      - ENV_BASE_REPO_DIR=/opt/containerfiles/django
-      - ENV_BASE_DATA_DIR=/opt/containerfiles/django/data
-      - ENV_DEFAULT_ROOT_VOLUME=/opt/web
-      - ENV_DOC_SOURCE_DIR=/opt/web/django/blog/source
-      - ENV_DOC_OUTPUT_DIR=/opt/web/django/templates
-      - ENV_STATIC_OUTPUT_DIR=/opt/web/static
-      - ENV_MEDIA_DIR=/opt/web/media
-      - ENV_DJANGO_DEBUG_MODE=True
-      - ENV_SERVER_MODE=PROD
-      - ENV_DEFAULT_PORT=85
-      - ENV_PROJ_DIR=/opt/containerfiles/django/wsgi/server/webapp
-      - ENV_BASE_DOMAIN=jaypjohnson.com
-      - ENV_SLACK_BOTNAME=bugbot
-      - ENV_SLACK_CHANNEL=debugging
-      - ENV_SLACK_NOTIFY_USER=jay
-      - ENV_SLACK_TOKEN=xoxb-51351043345-Lzwmto5IMVb8UK36MghZYMEi
-      - ENV_SLACK_ENVNAME=djangoapp
-      - ENV_SEND_EX_TO_SLACK=True
-      - ENV_GOOGLE_ANALYTICS_CODE=UA-79840762-99
+    env_file: 
+      - ./testing.env
     volumes:
       - /opt/web:/opt/web
     networks:

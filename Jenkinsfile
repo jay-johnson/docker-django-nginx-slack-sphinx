@@ -3,62 +3,70 @@
 node {
     
     // Setup the Docker Registry (Docker Hub) + Credentials 
-    env.REGISTRY_URL = "https://index.docker.io/v1/" // Docker Hub
-    env.DOCKER_CREDS_ID = "jayjohnson-DockerHub" // name of the Jenkins Credentials ID
-    env.BUILD_TAG = "testing" // default tag to push for to the registry
+    registry_url = "https://index.docker.io/v1/" // Docker Hub
+    docker_creds_id = "jayjohnson-DockerHub" // name of the Jenkins Credentials ID
+    build_tag = "testing" // default tag to push for to the registry
     
     stage 'Checking out GitHub Repo'
     git url: 'https://github.com/jay-johnson/docker-django-nginx-slack-sphinx.git'
     
     stage 'Building Django Container for Docker Hub'
-    docker.withRegistry("${env.REGISTRY_URL}", "${env.DOCKER_CREDS_ID}") {
+    docker.withRegistry("${registry_url}", "${docker_creds_id}") {
     
         // Set up the container to build 
-        env.MAINTAINER_NAME = "jayjohnson"
-        env.CONTAINER_NAME = "django-slack-sphinx"
+        maintainer_name = "jayjohnson"
+        container_name = "django-slack-sphinx"
+        docker_env_file = "testing.env"
         
+        // Read testing environment file:
+        docker_env_values = readProperties file: "./${docker_env_file}"
+
+        // Assign variables based off the env file
+        default_root_volume = "${docker_env_values.ENV_DEFAULT_ROOT_VOLUME}"
+        doc_source_dir = "${docker_env_values.ENV_DOC_SOURCE_DIR}"
+        doc_output_dir = "${docker_env_values.ENV_DOC_OUTPUT_DIR}"
+        static_output_dir = "${docker_env_values.ENV_STATIC_OUTPUT_DIR}"
+        media_dir = "${docker_env_values.ENV_MEDIA_DIR}"
+
         stage "Building"
-        
-        def container = docker.build("${env.MAINTAINER_NAME}/${env.CONTAINER_NAME}:${env.BUILD_TAG}", 'django')
-        sh "echo ${container.imageName()} -- ${container.id}"
-        
-        // Taken from the Dockerfile Environment Variables:
-        // https://github.com/jay-johnson/docker-django-nginx-slack-sphinx/blob/ee7c1901e7708de5d801518fb765fe79c18e690d/django/Dockerfile#L40-L60
-        env.ENV_BASE_HOMEDIR = "/opt"
-        env.ENV_BASE_REPO_DIR = "/opt/containerfiles/django"
-        env.ENV_BASE_DATA_DIR = "/opt/containerfiles/django/data"
-        env.ENV_DEFAULT_ROOT_VOLUME = "/opt/web"
-        env.ENV_DOC_SOURCE_DIR = "/opt/web/django/blog/source"
-        env.ENV_DOC_OUTPUT_DIR = "/opt/web/django/templates"
-        env.ENV_STATIC_OUTPUT_DIR = "/opt/web/static"
-        env.ENV_MEDIA_DIR = "/opt/web/media"
-        env.ENV_BASE_DOMAIN = "jaypjohnson.com"
-        env.ENV_SLACK_BOTNAME = "bugbot"
-        env.ENV_SLACK_CHANNEL = "debugging"
-        env.ENV_SLACK_NOTIFY_USER = "jay"
-        env.ENV_SLACK_TOKEN = "xoxb-51351043345-Lzwmto5IMVb8UK36MghZYMEi"
-        env.ENV_SLACK_ENVNAME = "djangoapp"
-        env.ENV_GOOGLE_ANALYTICS_CODE = "UA-79840762-99"
-        env.ENV_DJANGO_DEBUG_MODE = "True"
-        env.ENV_SERVER_MODE = "DEV"
-        env.ENV_DEFAULT_PORT = "80"
-        env.ENV_PROJ_DIR = "/opt/containerfiles/django/wsgi/server/webapp"
-    
+        echo "Building Django with docker.build(${maintainer_name}/${container_name}:${build_tag})"
+        def container = docker.build("${maintainer_name}/${container_name}:${build_tag}", 'django')
         try {
-        
-            stage "Testing Django container"
-            echo "-e ENV_BASE_DOMAIN=${env.ENV_BASE_DOMAIN} -e ENV_GOOGLE_ANALYTICS_CODE=${env.ENV_GOOGLE_ANALYTICS_CODE} -e ENV_DJANGO_DEBUG_MODE=${env.ENV_DJANGO_DEBUG_MODE} -e ENV_SERVER_MODE=${env.ENV_SERVER_MODE} -e ENV_DEFAULT_PORT=${env.ENV_DEFAULT_PORT} -e ENV_BASE_HOMEDIR=${env.ENV_BASE_HOMEDIR} -e ENV_BASE_REPO_DIR=${env.ENV_BASE_REPO_DIR} -e ENV_BASE_DATA_DIR=${env.ENV_BASE_DATA_DIR} -v ${env.ENV_DEFAULT_ROOT_VOLUME}:${env.ENV_DEFAULT_ROOT_VOLUME} -v ${env.ENV_DOC_SOURCE_DIR}:${env.ENV_DOC_SOURCE_DIR} -v ${env.ENV_DOC_OUTPUT_DIR}:${env.ENV_DOC_OUTPUT_DIR} -v ${env.ENV_STATIC_OUTPUT_DIR}:${env.ENV_STATIC_OUTPUT_DIR} -v ${env.ENV_MEDIA_DIR}:${env.ENV_MEDIA_DIR} -p 82:80 -p 444:443"
-            docker.image("jayjohnson/${env.CONTAINER_NAME}:${env.BUILD_TAG}").withRun("--name=${env.CONTAINER_NAME} -e ENV_BASE_DOMAIN=${env.ENV_BASE_DOMAIN} -e ENV_GOOGLE_ANALYTICS_CODE=${env.ENV_GOOGLE_ANALYTICS_CODE} -e ENV_DJANGO_DEBUG_MODE=${env.ENV_DJANGO_DEBUG_MODE} -e ENV_SERVER_MODE=${env.ENV_SERVER_MODE} -e ENV_DEFAULT_PORT=${env.ENV_DEFAULT_PORT} -e ENV_BASE_HOMEDIR=${env.ENV_BASE_HOMEDIR} -e ENV_BASE_REPO_DIR=${env.ENV_BASE_REPO_DIR} -e ENV_BASE_DATA_DIR=${env.ENV_BASE_DATA_DIR} -v ${env.ENV_DEFAULT_ROOT_VOLUME}:${env.ENV_DEFAULT_ROOT_VOLUME} -v ${env.ENV_DOC_SOURCE_DIR}:${env.ENV_DOC_SOURCE_DIR} -v ${env.ENV_DOC_OUTPUT_DIR}:${env.ENV_DOC_OUTPUT_DIR} -v ${env.ENV_STATIC_OUTPUT_DIR}:${env.ENV_STATIC_OUTPUT_DIR} -v ${env.ENV_MEDIA_DIR}:${env.ENV_MEDIA_DIR} -p 82:80 -p 444:443")  { c ->
-                
+            
+            // Start Testing
+            stage "Running Django container"
+            
+            // Run the container with the env file, mounted volumes and the ports:
+            docker.image("${maintainer_name}/${container_name}:${build_tag}").withRun("--name=${container_name} --env-file ${docker_env_file} -v ${default_root_volume}:${default_root_volume} -v ${doc_source_dir}:${doc_source_dir} -v ${doc_output_dir}:${doc_output_dir} -v ${static_output_dir}:${static_output_dir} -v ${media_dir}:${media_dir} -p 82:80 -p 444:443")  { c ->
+                   
                 // wait for the django server to be ready for testing
-                // probably a better way to cut down a couple seconds by ssh into 
-                // the container
-                sh "sleep 5"
+                // the 'waitUntil' block needs to return true to stop waiting
+                // in the future this will be handy to specify waiting for a max interval: 
+                // https://issues.jenkins-ci.org/browse/JENKINS-29037
+                //
+                waitUntil {
+                    sh "docker exec -t ${container_name} netstat -apn | grep 80 | grep LISTEN | wc -l | tr -d '\n' > /tmp/wait_results"
+                    wait_results = readFile '/tmp/wait_results'
+
+                    echo "Wait Results(${wait_results})"
+                    if ("${wait_results}" == "1")
+                    {
+                        echo "Django is listening on port 80"
+                        sh "rm -f /tmp/wait_results"
+                        return true
+                    }
+                    else
+                    {
+                        echo "Django is not listening on port 80 yet"
+                        return false
+                    }
+                } // end of waitUntil
                 
+                // At this point Django is running
                 echo "Checking Docker Container is running"
-                sh "docker ps | grep ${env.CONTAINER_NAME}"
                     
-                // for this demo it is using 3 tests:
+                // this pipeline is using 3 tests 
+                // by setting it to more than 3 you can test the error handling and see the pipeline Stage View error message
                 def MAX_TESTS = 3
                 for (test_num = 0; test_num < MAX_TESTS; test_num++) {     
                    
@@ -68,31 +76,29 @@ node {
                     if (test_num == 0 ) 
                     {
                         // Test we can download the home page from the running django docker container
-                        sh "docker exec -t ${env.CONTAINER_NAME} curl -s http://localhost/home/ | grep Welcome | wc -l | tr -d '\n' > /tmp/test_results" 
+                        sh "docker exec -t ${container_name} curl -s http://localhost/home/ | grep Welcome | wc -l | tr -d '\n' > /tmp/test_results" 
                         expected_results = 1
                     }
                     else if (test_num == 1)
                     {
                         // Test that port 80 is exposed
                         echo "Exposed Docker Ports:"
-                        sh "docker inspect --format '{{ (.NetworkSettings.Ports) }}' ${env.CONTAINER_NAME}"
-                        sh "docker inspect --format '{{ (.NetworkSettings.Ports) }}' ${env.CONTAINER_NAME} | grep map | grep '80/tcp:' | wc -l | tr -d '\n' > /tmp/test_results"
+                        sh "docker inspect --format '{{ (.NetworkSettings.Ports) }}' ${container_name}"
+                        sh "docker inspect --format '{{ (.NetworkSettings.Ports) }}' ${container_name} | grep map | grep '80/tcp:' | wc -l | tr -d '\n' > /tmp/test_results"
                         expected_results = 1
                     }
                     else if (test_num == 2)
                     {
                         // Test there's nothing established on the port since nginx is not running:
-                        sh "docker exec -t ${env.CONTAINER_NAME} netstat -apn | grep 80 | grep ESTABLISHED | wc -l | tr -d '\n' > /tmp/test_results"
+                        sh "docker exec -t ${container_name} netstat -apn | grep 80 | grep ESTABLISHED | wc -l | tr -d '\n' > /tmp/test_results"
                         expected_results = 0
                     }
                     else
                     {
                         err_msg = "Missing Test(${test_num})"
                         echo "ERROR: ${err_msg}"
-                        echo "ERROR: ${err_msg}"
-                        echo "ERROR: ${err_msg}"
                         currentBuild.result = 'FAILURE'
-                        FORCE_GROOVY_TO_FAIL_RIGHT_HERE_WITH_AN_EXCEPTION
+                        error "Failed to finish container testing with Message(${err_msg})"
                     }
                     
                     // Now validate the results match the expected results
@@ -110,9 +116,8 @@ node {
             
         } catch (Exception err) {
             def err_msg = "Test had Exception(${err})"
-            echo "FAILED - Stopping for Error: ${err_msg}"
             currentBuild.result = 'FAILURE'
-            sh "exit 1"
+            error "FAILED - Stopping build for Error(${err_msg})"
         }
         
         stage "Pushing"
@@ -122,16 +127,15 @@ node {
     }
     
     stage 'Building nginx Container for Docker Hub'
-    docker.withRegistry("${env.REGISTRY_URL}", "${env.DOCKER_CREDS_ID}") {
+    docker.withRegistry("${registry_url}", "${docker_creds_id}") {
         
         // Set up the container to build
-        env.MAINTAINER_NAME = "jayjohnson"
-        env.CONTAINER_NAME = "django-nginx"
-        env.BUILD_TAG = "testing"
+        maintainer_name = "jayjohnson"
+        container_name = "django-nginx"
      
         stage "Building Container"
-         
-        def container = docker.build("${env.MAINTAINER_NAME}/${env.CONTAINER_NAME}:${env.BUILD_TAG}", 'nginx')
+        echo "Building nginx with docker.build(${maintainer_name}/${container_name}:${build_tag})"
+        container = docker.build("${maintainer_name}/${container_name}:${build_tag}", 'nginx')
        
         // add more tests
         
