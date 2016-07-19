@@ -63,7 +63,7 @@ node {
                 } // end of waitUntil
                 
                 // At this point Django is running
-                echo "Checking Docker Container is running"
+                echo "Docker Container is running"
                     
                 // this pipeline is using 3 tests 
                 // by setting it to more than 3 you can test the error handling and see the pipeline Stage View error message
